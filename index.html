@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta para Santa</title>
+    <style>
+        /* Estilo general */
+        body {
+            background-color: #fce4ec; /* Fondo rosita por defecto */
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            color: #000000;
+        }
+
+        /* Fondo de la página con detalles navideños */
+        .container {
+            background-image: url('fondo4.jpg'); /* Fondo por defecto para Cielo */
+            background-size: cover;
+            background-position: center;
+            padding: 50px;
+            min-height: 100vh;
+        }
+
+        /* Estilo del video */
+        video {
+            border: 5px solid #ff4081;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            width: 300px; /* Ajusta el tamaño del video aquí */
+            height: auto; /* Mantiene la proporción del video */
+        }
+
+        /* Botón interactivo */
+        button {
+            background-color: #e91e63;
+            color: white;
+            font-size: 24px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #d81b60;
+        }
+
+        /* Estilo de la carta */
+        #carta {
+            display: none;
+            background-color: #ffffff;
+            color: #000;
+            padding: 30px;
+            margin-top: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Fondo tipo papel */
+        #carta p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        /* Copos de nieve animados */
+        .snowflakes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 24px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10px;
+                opacity: 1;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+            }
+        }
+
+        /* Menú desplegable */
+        .menu {
+            margin: 20px 0;
+        }
+
+        select {
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            background-color: #fc2f03;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Estilo alternativo para la carta de Bolillo */
+        body.bolillo {
+            background-color: #fff59d; /* Fondo amarillo */
+        }
+
+        /* Contenedor con fondo diferente para Bolillo */
+        .bolillo-container {
+            background-image: url('bolifondo.jpg'); /* Fondo personalizado para Bolillo */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menú desplegable -->
+    <div class="menu">
+        <label for="menu-cartas">Selecciona una carta: </label>
+        <select id="menu-cartas" onchange="cambiarCarta()">
+            <option value="cielo">Carta de Cielo</option>
+            <option value="bolillo">Carta de Bolillo</option>
+        </select>
+    </div>
+
+    <div class="container" id="contenedor">
+        <!-- Video navideño -->
+        <h1>¡Querido Santa!</h1>
+        <video id="video-carta" width="300" height="auto" controls> <!-- Video más pequeño -->
+            <source src="cielo.mp4" type="video/mp4"> <!-- Video para Cielo -->
+            Tu navegador no soporta la etiqueta de video.
+        </video>
+
+        <!-- Botón interactivo -->
+        <button onclick="mostrarCarta()">¡Oprímeme, Santa!</button>
+
+        <!-- Carta a Santa -->
+        <div id="carta">
+            <p>Querido Santa,</p>
+            <p>Cartita navideña de 2 ratas sin que hacer (Cielo y Boillo)</p>
+            <p id="contenido-carta">🎄 Hola Santa, Me gustaria pedir un regalo, una tablet ipad jaja, un regalito algo diferente a años pasados ☻, es una idea vdd</p>
+            <p>De parte de,<br> Cielin y Bolillito ☻♥</p>
+        </div>
+
+        <!-- Copos de nieve -->
+        <div class="snowflakes" aria-hidden="true">
+            <div class="snowflake">❅</div>
+            <div class="snowflake">❆</div>
+            <div class="snowflake">❅</div>
+            <div class="snowflake">❆</div>
+            <div class="snowflake">❅</div>
+            <div class="snowflake">❆</div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarCarta() {
+            var carta = document.getElementById('carta');
+            carta.style.display = 'block';  // Muestra la carta al presionar el botón
+        }
+
+        // Animación de los copos de nieve
+        document.addEventListener('DOMContentLoaded', () => {
+            const snowflakes = document.querySelectorAll('.snowflake');
+            snowflakes.forEach(snowflake => {
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                snowflake.style.fontSize = `${Math.random() * 10 + 10}px`;
+            });
+        });
+
+        // Función para cambiar entre Carta de Cielo y Carta de Bolillo
+        function cambiarCarta() {
+            var seleccion = document.getElementById('menu-cartas').value;
+            var contenedor = document.getElementById('contenedor');
+            var videoCarta = document.getElementById('video-carta');
+            var contenidoCarta = document.getElementById('contenido-carta');
+
+            if (seleccion === 'cielo') {
+                // Cambia al estilo y contenido de Cielo
+                contenedor.className = 'container';
+                videoCarta.src = 'cielo.mp4';  // Cambia el video
+                contenidoCarta.innerHTML = "🎄 Me encantaría un iPad para poder seguir creando páginas increíbles como esta y aprender aún más cosas nuevas. Sé que es un gran regalo, pero me ayudaría muchísimo a seguir siendo creativa y aprender cada día más.";
+            } else if (seleccion === 'bolillo') {
+                // Cambia al estilo y contenido de Bolillo
+                contenedor.className = 'container bolillo-container';
+                videoCarta.src = 'bolillo.mp4';  // Cambia el video a otro para Bolillo
+                contenidoCarta.innerHTML = "🎄 Hola Santa, soy Bolillo, y me gustaría pedirte algo especial para Navidad: ¡unas croquetas de gatitos plus para comer rico y una pelotita! ¡Gracias!";
+            }
+        }
+    </script>
+
+</body>
+</html>
